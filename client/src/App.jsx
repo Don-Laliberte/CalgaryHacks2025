@@ -45,6 +45,7 @@ function App() {
               <Route path="/start-quiz" element={<QuizWithErrorBoundary />} />
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
+              <Route path="/login" element={<Login/>}></Route>
             </Routes>
           </div>
         </div>
