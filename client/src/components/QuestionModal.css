@@ -306,4 +306,23 @@
   .true-false-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.option {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 2px solid #7C9070;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.option.selected {
+  background-color: #7C9070;
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.options-list {
+  margin: 1rem 0;
 } 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { PhidgetProvider } from './PhidgetKit';
 
 class PhidgetErrorBoundary extends React.Component {
   constructor(props) {
@@ -18,9 +19,12 @@ class PhidgetErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="bg-red-50 p-4 rounded-md">
-          <p className="text-red-600">Phidget Error: Unable to connect to device</p>
+          <p className="text-red-600">Phidget Error: {this.state.error?.message || 'Unable to connect to device'}</p>
           <button 
-            onClick={() => this.setState({ hasError: false })}
+            onClick={() => {
+              this.setState({ hasError: false });
+              window.location.reload();
+            }}
             className="mt-2 text-sm text-red-600 hover:text-red-800"
           >
             Try Again

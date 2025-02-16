@@ -32,11 +32,11 @@ function App() {
 
   return (
     <Router>
-      <PhidgetErrorBoundary>
-        <PhidgetProvider>
-          <div className="flex flex-col h-screen">
-            <Navbar />
-            <main className="flex-1">
+      <div className="flex flex-col h-screen">
+        <Navbar />
+        <main className="flex-1">
+          <PhidgetErrorBoundary>
+            <PhidgetProvider>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/quiz" element={<QuestionModal />} />
@@ -45,10 +45,10 @@ function App() {
                 <Route path="/about" element={<div>About Page</div>} />
                 <Route path="/login" element={<Login/>} />
               </Routes>
-            </main>
-          </div>
-        </PhidgetProvider>
-      </PhidgetErrorBoundary>
+            </PhidgetProvider>
+          </PhidgetErrorBoundary>
+        </main>
+      </div>
     </Router>
   );
 }

@@ -1,34 +1,31 @@
 export const questions = [
   {
     id: 1,
-    question: "What is the primary cause of global warming?",
+    text: "What is the primary cause of global warming?",
     options: [
       "Greenhouse gas emissions",
       "Solar flares",
-      "Volcanic activity",
-      "Ocean currents"
+      "Volcanic activity"
     ],
     correctAnswer: 0
   },
   {
     id: 2,
-    question: "Which of these species is currently endangered?",
+    text: "Which of these species is currently endangered?",
     options: [
       "House cats",
       "Giant Pandas",
-      "Pigeons",
-      "Squirrels"
+      "Pigeons"
     ],
     correctAnswer: 1
   },
   {
     id: 3,
-    question: "What is the most effective way to reduce your carbon footprint?",
+    text: "What is the most effective way to reduce your carbon footprint?",
     options: [
       "Using public transportation",
       "Turning off lights",
-      "Reducing meat consumption",
-      "Using reusable bags"
+      "Reducing meat consumption"
     ],
     correctAnswer: 2
   }

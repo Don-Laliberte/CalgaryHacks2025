@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import phidget22 from 'phidget22';
+
 const router = express.Router();
-const phidget22 = require('phidget22');
 
 let voltageInput = null;
 
@@ -40,31 +41,20 @@ router.post('/connect', async (req, res) => {
 router.get('/value', async (req, res) => {
   try {
     const redButton = req.app.get('redButton');
-    const greenButton = req.app.get('greenButton');
-    
-    if (!redButton || !greenButton) {
-      throw new Error('Phidget not connected');
+    if (!redButton) {
+      return res.status(500).json({ 
+        error: 'Device not initialized',
+        details: 'Phidget connection not established'
+      });
     }
-
-    // Get button states
-    const redState = redButton.getState();
-    const greenState = greenButton.getState();
-
-    // Map button states to answer selection (0-3)
-    let selectedAnswer = null;
-    if (redState && !greenState) selectedAnswer = 0;    // Only red pressed
-    else if (!redState && greenState) selectedAnswer = 1;  // Only green pressed
-    else if (redState && greenState) selectedAnswer = 2;   // Both pressed
-    // Neither pressed = null (no selection)
-
-    res.json({
-      value: selectedAnswer !== null ? selectedAnswer * 33.33 : 0, // Map to 0-100 range
-      redButton: redState,
-      greenButton: greenState,
-      selectedAnswer
-    });
+    
+    const state = {
+      redButton: redButton.getState()
+    };
+    
+    res.json(state);
   } catch (error) {
-    console.error('Error reading buttons:', error);
+    console.error('Error getting button state:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -125,4 +115,8 @@ router.post('/led', async (req, res) => {
   }
 });
 
-module.exports = router; 
+router.get('/test', (req, res) => {
+  res.json({ status: 'Phidget routes working' });
+});
+
+export default router; 
