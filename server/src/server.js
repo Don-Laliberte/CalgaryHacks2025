@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { connectMongo } from "./mongoDB/connectMongo.js";
 import express from "express";
 import http from "node:http";
+import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import session from "express-session";
@@ -13,6 +14,10 @@ import leaderBoard from "./routes/getLeaderboard.js"
 dotenv.config();
 
 const app = express();
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({

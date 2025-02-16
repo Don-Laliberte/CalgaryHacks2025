@@ -5,6 +5,7 @@ import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
+import Leaderboard from './pages/Leaderboard.jsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +38,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/quiz" element={<QuizWithErrorBoundary />} />
-              <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
+              <Route path="/leaderboard" element={<Leaderboard/>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>} />
             </Routes>
