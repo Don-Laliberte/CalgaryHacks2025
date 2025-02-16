@@ -44,7 +44,9 @@ function App() {
               <Route path="/login" element={<Login/>} />
               <Route path="/jonathan-hudson<3" element={<div><ClickableQuestion 
               imageSrc={testImage}
-              question={questions[0]}/></div>}/>
+              questionId={1}
+              top={500}
+              left={500}/></div>}/>
             </Routes>
           </main>
         </div>

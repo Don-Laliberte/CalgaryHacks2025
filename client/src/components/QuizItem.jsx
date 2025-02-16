@@ -139,10 +139,14 @@ const QuizItem = ({ question }) => {
     }
   };
 
-  //if (!isOpen || !question) return null;
+  const handleClose = () => {
+    closeQuizModal();
+  };
+
+  if (!isOpen || !question) return null;
 
   return (
-    <div className="modal-overlay" onClick={closeQuizModal}>
+    <div className="modal-overlay" onClick={handleClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <p className="question-text">{question.question}</p>
@@ -161,7 +165,7 @@ const QuizItem = ({ question }) => {
         </div>
 
         <div className="modal-footer">
-          <button className="button secondary" onClick={closeQuizModal}>
+          <button className="button secondary" onClick={handleClose}>
             Close
           </button>
         </div>
