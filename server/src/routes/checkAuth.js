@@ -6,7 +6,8 @@ router.get("/checkAuth", validateAuth,(req, res) => {
   return res.send({
     isLoggedIn: true,
     username: req.user.username,
-    profilePicture: req.user.profilePicture
+    profilePicture: req.user.profilePicture,
+    level: req.user.level
   })
 })
 
