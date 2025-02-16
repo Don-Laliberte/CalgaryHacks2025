@@ -1,13 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
 
-const HomePage = () => {
+const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full h-full">
-      {/* Background Container */}
+    <div className="fixed inset-0 mt-16">
+      {/* Background */}
       <img 
         src="/images/background.png" 
         alt="background" 
@@ -30,4 +29,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home; 
