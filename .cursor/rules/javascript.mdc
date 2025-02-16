@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+---
+
+# Your rule content
+Use Exclusively Javascript, avoid Typescript but notifiy when something isn't possible in Javascript over Typescript
+- You can @ files here
+- You can use markdown but dont have to

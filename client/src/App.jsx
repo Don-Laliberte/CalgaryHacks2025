@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import QuizWithErrorBoundary from './components/QuestionModal';
 import './App.css'
+import Login from './pages/Login.jsx'
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 
