@@ -24,7 +24,8 @@ passport.deserializeUser(async (data, done) => {
       done(null, {
         username: foundUser.username,
         profilePicture: foundUser.profilePicture,
-        id: foundUser.id
+        id: foundUser.id,
+        level: foundUser.level
       })
     }
   } catch (err) {
@@ -35,7 +36,7 @@ passport.deserializeUser(async (data, done) => {
 
 router.get("/google", passport.authenticate("google", { scope: ['profile', 'email'] }))
 router.get("/google/redirect", passport.authenticate('google', { failureRedirect: 'http:localhost:5173/' }), (req, res) => {
-  res.redirect("http://localhost:3000/")
+  res.redirect("http://localhost:5173/")
 })
 
 export default router

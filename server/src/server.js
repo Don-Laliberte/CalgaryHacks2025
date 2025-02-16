@@ -9,6 +9,7 @@ import passport from "passport";
 import authRoute from "./routes/auth.js"
 import updateUser from "./routes/updateUser.js"
 import checkAuth from "./routes/checkAuth.js"
+import leaderBoard from "./routes/getLeaderboard.js"
 dotenv.config();
 
 const app = express();
@@ -29,8 +30,8 @@ app.use(passport.session());
 //routes bud
 app.use("/auth", authRoute)
 app.use("/api", checkAuth)
-app.use(updateUser)
-
+app.use("/api", updateUser)
+app.use(leaderBoard)
 
 const server = http.createServer(app);
 
