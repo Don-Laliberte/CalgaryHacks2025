@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
+import testImage from './assets/pictures/1-16dfb034.png'
 import QuizWithErrorBoundary from './components/QuestionModal';
 import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
