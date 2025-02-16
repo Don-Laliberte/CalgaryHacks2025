@@ -26,59 +26,99 @@
   border-color: white transparent transparent transparent;
 }
 
+.clickable-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  height: 100vh;
+  z-index: 5;
+  overflow: visible;
+}
+
 .image-container {
   position: absolute;
   z-index: 10;
   cursor: pointer;
+  width: 80px;
+  height: auto;
+  pointer-events: auto;
 }
 
 .responsive {
-  width: 100px;
+  width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.3s ease;
 }
 
 .hover-effect:hover {
   transform: scale(1.1);
-  transition: transform 0.3s ease;
+  z-index: 15;
 }
 
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
+  overflow: hidden;
 }
 
 .modal-content {
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 12px;
   max-width: 500px;
   width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  transform: translateZ(0);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fact-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.close-button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #2d3748;
 }
 
 .centered {
   text-align: center;
 }
 
-/* Remove any other styles that might be interfering */
-.clickable-images-container {
+.home-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.image-container {
-  pointer-events: auto;
+  right: 0;
+  bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
 }
