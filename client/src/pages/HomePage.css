@@ -1,6 +1,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  overscroll-behavior: none; /* Prevent scroll chaining */
 }
 
 .home-container {
@@ -11,6 +13,7 @@ html, body {
   bottom: 0;
   overflow-x: auto;
   overflow-y: hidden;
+  overscroll-behavior-x: contain; /* Contain horizontal scroll */
 }
 
 .scrollable-container {
@@ -19,34 +22,11 @@ html, body {
   height: 100vh;
 }
 
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
 .background-image {
   width: 200vw;
   height: 100vh;
   object-fit: cover;
   object-position: left center;
-}
-
-.content-container {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 64px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  pointer-events: none;
 }
 
 .start-button {
@@ -65,15 +45,4 @@ html, body {
 .start-button:hover {
   background-color: rgb(21 128 61);
   transform: scale(1.05);
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.home-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.home-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }

@@ -7,11 +7,13 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-      <img 
+        <div class>
+        <img 
         src="/background-scrollable.png" 
         alt="background" 
         className="background-image"
       />
+        </div>
     </div> 
   );
 };
