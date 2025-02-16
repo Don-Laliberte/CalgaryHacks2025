@@ -1,122 +1,99 @@
-import React, { useEffect, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
-class PhidgetKit {
-  constructor() {
-    this.connection = null;
-    this.isConnecting = false;
-    this.retryAttempts = 0;
-    this.maxRetries = 3;
-    this.digitalInput0 = null; // Red button (port 0)
-    this.digitalInput5 = null; // Green button (port 5)
-    this.digitalOutput1 = null; // Red LED (port 1)
-    this.digitalOutput4 = null; // Green LED (port 4)
-  }
+const PhidgetContext = createContext(null);
 
-  async connect() {
-    if (this.isConnecting) return false;
-    this.isConnecting = true;
+export const PhidgetProvider = ({ children }) => {
+  const [buttonStates, setButtonStates] = useState({
+    red: false,
+    green: false
+  });
+  const [isConnected, setIsConnected] = useState(false);
+  const [error, setError] = useState(null);
 
-    try {
-      const phidget22 = await import('phidget22');
-      
-      // Create the connection with timeout
-      this.connection = new phidget22.Connection(3002, 'localhost');
-      await Promise.race([
-        this.connection.connect(),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Connection timeout')), 5000)
-        )
-      ]);
+  // Poll button states
+  useEffect(() => {
+    const pollButtons = async () => {
+      try {
+        // Simplified URL - try direct connection to Phidget webserver
+        const response = await fetch('http://localhost:8989/phidget', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
 
-      // Initialize components with error checking
-      await this.initializeComponents(phidget22);
-      this.isConnecting = false;
-      return true;
-    } catch (error) {
-      console.error('Phidget connection error:', error);
-      this.isConnecting = false;
-      
-      if (this.retryAttempts < this.maxRetries) {
-        this.retryAttempts++;
-        return await this.connect();
+        if (!response.ok) {
+          console.error('Phidget response not OK:', response.status);
+          throw new Error('Failed to get button states');
+        }
+        
+        const data = await response.json();
+        console.log('Phidget data received:', data);
+        
+        setButtonStates({
+          red: data.redButton,
+          green: data.greenButton
+        });
+        setIsConnected(true);
+        setError(null);
+      } catch (err) {
+        console.error('Error polling buttons:', err);
+        setError(err.message);
+        setIsConnected(false);
       }
-      return false;
-    }
-  }
+    };
 
-  async initializeComponents(phidget22) {
+    const interval = setInterval(pollButtons, 50);
+    pollButtons();
+    return () => clearInterval(interval);
+  }, []);
+
+  // Function to get current answer based on button states
+  const getCurrentAnswer = () => {
+    const { red, green } = buttonStates;
+    if (red && !green) return 0;      // First answer
+    if (!red && green) return 1;      // Second answer
+    if (red && green) return 2;       // Third answer
+    return null;                      // No answer selected
+  };
+
+  // Function to control LEDs
+  const setLEDs = async (isCorrect) => {
     try {
-      // Initialize inputs
-      this.digitalInput0 = new phidget22.DigitalInput();
-      this.digitalInput5 = new phidget22.DigitalInput();
-      
-      // Initialize outputs
-      this.digitalOutput1 = new phidget22.DigitalOutput();
-      this.digitalOutput4 = new phidget22.DigitalOutput();
-
-      // Configure channels
-      await Promise.all([
-        this.configureChannel(this.digitalInput0, 0),
-        this.configureChannel(this.digitalInput5, 5),
-        this.configureChannel(this.digitalOutput1, 1),
-        this.configureChannel(this.digitalOutput4, 4)
-      ]);
-    } catch (error) {
-      throw new Error(`Failed to initialize components: ${error.message}`);
+      const response = await fetch('http://localhost:8989/phidget', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          red: !isCorrect,
+          green: isCorrect
+        })
+      });
+      if (!response.ok) throw new Error('Failed to set LED states');
+    } catch (err) {
+      console.error('Error setting LEDs:', err);
+      throw err;
     }
-  }
+  };
 
-  async configureChannel(component, channel) {
-    try {
-      component.setChannel(channel);
-      await component.open();
-    } catch (error) {
-      throw new Error(`Failed to configure channel ${channel}: ${error.message}`);
-    }
-  }
-
-  async disconnect() {
-    try {
-      if (this.digitalInput0) await this.digitalInput0.close();
-      if (this.digitalInput5) await this.digitalInput5.close();
-      if (this.digitalOutput1) await this.digitalOutput1.close();
-      if (this.digitalOutput4) await this.digitalOutput4.close();
-      if (this.connection) await this.connection.close();
-    } catch (error) {
-      console.error('Error disconnecting Phidget:', error);
-    }
-  }
-
-  // LED control methods
-  async setGreenLED(state) {
-    if (this.digitalOutput4) {
-      await this.digitalOutput4.setState(state);
-    }
-  }
-
-  async setRedLED(state) {
-    if (this.digitalOutput1) {
-      await this.digitalOutput1.setState(state);
-    }
-  }
-}
+  return (
+    <PhidgetContext.Provider value={{
+      isConnected,
+      error,
+      buttonStates,
+      getCurrentAnswer,
+      setLEDs
+    }}>
+      {children}
+    </PhidgetContext.Provider>
+  );
+};
 
 export const usePhidget = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [phidget] = useState(new PhidgetKit());
-
-  useEffect(() => {
-    const initPhidget = async () => {
-      const connected = await phidget.connect();
-      setIsConnected(connected);
-    };
-
-    initPhidget();
-
-    return () => {
-      phidget.disconnect();
-    };
-  }, [phidget]);
-
-  return { phidget, isConnected };
+  const context = useContext(PhidgetContext);
+  if (!context) {
+    throw new Error('usePhidget must be used within a PhidgetProvider');
+  }
+  return context;
 }; 

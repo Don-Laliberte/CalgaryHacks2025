@@ -163,29 +163,134 @@
 }
 
 .quiz-container {
-  padding: 1.5rem;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card {
-  background: #FFFAF4;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(124, 144, 112, 0.15);
-  border: 1px solid #7C9070;
+.question-section {
+  margin-bottom: 2rem;
 }
 
-.card h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #4A5D42;
+.question-count {
+  font-size: 1.2rem;
+  color: #666;
   margin-bottom: 1rem;
 }
 
-.card p {
-  margin-bottom: 1.5rem;
-  color: #4A5D42;
+.question-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.answer-button {
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 0.5rem;
+  background: white;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.answer-button:hover {
+  background: #f0f0f0;
+}
+
+.answer-button.selected {
+  border-color: #4CAF50;
+  background: #E8F5E9;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-button:hover {
+  background: #388E3C;
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.score-section {
+  text-align: center;
+}
+
+.score-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.restart-button, .home-button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.restart-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.home-button {
+  background: white;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
+}
+
+.sensor-feedback {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.phidget-status {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.phidget-status .error {
+  color: #dc3545;
+  margin-top: 0.5rem;
 }
 
 @media (max-width: 480px) {
