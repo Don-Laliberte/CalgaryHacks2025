@@ -17,7 +17,7 @@ const ClickableImage = ({ imageSrc, message }) => {
       <img
         src={imageSrc}
         alt="Clickable"
-        className="responsive"
+        className="responsive hover-effect"
         onClick={handleImageClick}
       />
       {isVisible && (
@@ -30,5 +30,5 @@ const ClickableImage = ({ imageSrc, message }) => {
     </div>
   );
 };
-  
-  export default ClickableImage;
+
+export default ClickableImage;

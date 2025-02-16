@@ -46,10 +46,9 @@ export const questions = [
   },
   {
     id: 6,
-    type: 'multiple-choice',
-    question: 'In which country did WWF help end the legal ivory trade?',
-    options: ['Thailand', 'China', 'Kenya', 'India'],
-    correctAnswer: 'China',
+    type: 'true-false',
+    question: 'Namibia was the first African country to enshrine environmental protection in its constitution.',
+    correctAnswer: 'True',
     isDone: false
   },
   {
@@ -99,13 +98,14 @@ export const questions = [
     type: 'multiple-choice',
     question: 'By approximately what percentage are gorilla populations declining each year?',
     options: ['1%', '3%', '5%', '10%'],
-    correctAnswer: '3%'
+    correctAnswer: '3%',
+    isDone: false
   },
   {
     id: 12,
-    type: 'multiple-choice',
-    question: 'Approximately how many quarters of wild lion populations are in decline?',
-    options: ['one quarter', 'two quarters', 'three quarters', 'all populations'],
-    correctAnswer: 'three quarters'
+    type: 'true-false',
+    question: 'Most elephants are poached for their meat rather than their tusks.',
+    correctAnswer: 'False',
+    isDone: false
   }
 ];

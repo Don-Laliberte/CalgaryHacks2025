@@ -64,3 +64,15 @@ img.responsive {
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 24px;
 }
+
+.hover-effect {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-effect:hover {
+  transform: scale(0.9) rotate(-45deg);
+}
+
+.hover-effect:hover:nth-child(even) {
+  transform: scale(0.9) rotate(45deg);
+}

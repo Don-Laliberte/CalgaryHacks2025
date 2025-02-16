@@ -1,16 +1,18 @@
 import React from 'react';
 import './HomePage.css';
+import QuizProgress from '../components/ClickableAssets/QuizProgress';
 
 const HomePage = () => {
   return (
     <div className="home-container">
-        <div class>
-        <img 
-        src="/background-scrollable.png" 
-        alt="background" 
-        className="background-image"
-      />
+        <div>
+          <img 
+            src="/background-scrollable.png" 
+            alt="background" 
+            className="background-image"
+          />
         </div>
+        <QuizProgress />
     </div> 
   );
 };

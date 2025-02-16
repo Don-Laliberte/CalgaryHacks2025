@@ -1,5 +1,6 @@
 import {create} from "zustand";
 import { backendaxios } from "./lib/backendaxios";
+import { questions } from "./data/quizQuestions";
 const useLogin = create((set) => {
     isLoggedIn: false
     login: () => set((state) => ({}))
@@ -21,6 +22,12 @@ export const useInfoStore = create((set) => ({
 export const useQuizStore = create((set) => ({
   isOpen: false,
   question: null,
+  questions: questions,
   openQuizModal: (question) => set({ isOpen: true, question }),
   closeQuizModal: () => set({ isOpen: false, question: null }),
+  setQuestionDone: (questionId) => set((state) => ({
+    question: state.question && state.question.id === questionId 
+      ? { ...state.question, isDone: true } 
+      : state.question,
+  })),
 }));

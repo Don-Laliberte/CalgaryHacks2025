@@ -5,7 +5,7 @@ import './QuestionModal.css';
 import { useQuizStore } from '../store';
 
 const QuizItem = ({ question }) => {
-  const { isOpen, question, closeQuizModal } = useQuizStore()
+  const { isOpen, closeQuizModal, setQuestionDone } = useQuizStore()
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -66,16 +66,18 @@ const QuizItem = ({ question }) => {
     setIsCorrect(correct);
     setShowExplanation(true);
 
+    if (correct) {
+      setQuestionDone(question.id);
+    }
+
     if (isConnected) {
       await phidget.setGreenLED(false);
       await phidget.setRedLED(false);
-
       if (correct) {
         await phidget.setGreenLED(true);
       } else {
         await phidget.setRedLED(true);
       }
-
       setTimeout(async () => {
         await phidget.setGreenLED(false);
         await phidget.setRedLED(false);
@@ -137,7 +139,7 @@ const QuizItem = ({ question }) => {
     }
   };
 
-  if (!isOpen || !question) return null;
+  //if (!isOpen || !question) return null;
 
   return (
     <div className="modal-overlay" onClick={closeQuizModal}>
@@ -159,7 +161,7 @@ const QuizItem = ({ question }) => {
         </div>
 
         <div className="modal-footer">
-          <button className="button secondary" onClick={onClose}>
+          <button className="button secondary" onClick={closeQuizModal}>
             Close
           </button>
         </div>
