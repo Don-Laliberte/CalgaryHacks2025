@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import QuizProgress from '../components/ClickableAssets/QuizProgress';
 import ClickableImage from '../components/ClickableAssets/ClickableImage';
+import ClickableQuestion from '../components/ClickableAssets/ClickableQuestion';
 
 const HomePage = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -54,6 +55,41 @@ const HomePage = () => {
         className="background-image"
       />
       <div className="clickable-images-container">
+      <ClickableQuestion 
+              imageSrc="/aki.png"
+              questionId={1}
+              top={400}
+              left={400}/>
+        <ClickableQuestion 
+          imageSrc="/panda.png"
+          questionId={2}
+          top={600}
+          left={600}
+        />
+        <ClickableQuestion 
+          imageSrc="/dolphin.png"
+          questionId={3}
+          top={250}
+          left={750}
+        />
+        <ClickableQuestion 
+          imageSrc="/freakytiger.png"
+          questionId={4}
+          top={200}
+          left={200}
+        />
+        <ClickableQuestion 
+          imageSrc="/elefant.png"
+          questionId={5}
+          top={100}
+          left={100}
+        />
+        <ClickableQuestion 
+          imageSrc="/makima.png"
+          questionId={6}
+          top={750}
+          left={750}
+        />
         <ClickableImage 
           imageSrc="/images/ash.png"
           altText="Ash Image" 

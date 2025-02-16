@@ -27,7 +27,7 @@ const ClickableQuestion = ({ imageSrc, questionId, top, left }) => {
       className="clickable-question"
       style={{ position: "absolute", top: `${top}px`, left: `${left}px`, pointerEvents: isAnswered || question?.isDone ? "none" : "auto" }}
     >
-      <img
+       <img
         src={imageSrc}
         alt="Clickable"
         className={`responsive ${isAnswered || question?.isDone ? "disabled" : "hover-effect"}`}
