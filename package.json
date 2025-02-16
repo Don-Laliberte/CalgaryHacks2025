@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "phidget22": "^3.22.3"
+  }
+}

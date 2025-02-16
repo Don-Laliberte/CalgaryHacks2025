@@ -1,0 +1,204 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E8EFE6;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1000;
+  padding-top: 80px;
+}
+
+.modal-content {
+  background: #FFFAF4;
+  padding: 2rem;
+  width: 100%;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(124, 144, 112, 0.15);
+  border: 1px solid #7C9070;
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+
+.modal-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4A5D42;
+  margin-bottom: 1rem;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  color: #4A5D42;
+}
+
+.options-container {
+  max-width: 800px;
+  margin: 1.5rem auto;
+}
+
+.phidget-instructions {
+  background-color: rgba(124, 144, 112, 0.1);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #4A5D42;
+  border: 1px solid #A6B59E;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.true-false-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.option-button {
+  padding: 1rem;
+  border: 1px solid #A6B59E;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-align: left;
+  color: #4A5D42;
+}
+
+.option-button:hover {
+  border-color: #4A5D42;
+  background-color: #E8EFE6;
+  transform: translateY(-1px);
+}
+
+.option-button.highlighted {
+  border-color: #4A5D42;
+  background-color: #E8EFE6;
+}
+
+.option-button.correct {
+  background-color: rgba(124, 144, 112, 0.2);
+  border-color: #4A5D42;
+  color: #4A5D42;
+}
+
+.option-button.incorrect {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.explanation {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  max-width: 800px;
+  margin: 1rem auto;
+}
+
+.explanation.correct {
+  background-color: rgba(124, 144, 112, 0.2);
+  color: #4A5D42;
+  border: 1px solid #4A5D42;
+}
+
+.explanation.incorrect {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #721c24;
+  border: 1px solid #dc3545;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  max-width: 800px;
+  margin: 1.5rem auto 0;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.button.primary {
+  background-color: #4A5D42;
+  color: white;
+}
+
+.button.primary:hover {
+  background-color: #5B7350;
+  transform: translateY(-1px);
+}
+
+.button.secondary {
+  background-color: #fff;
+  border: 1px solid #A6B59E;
+  color: #4A5D42;
+}
+
+.button.secondary:hover {
+  background-color: #E8EFE6;
+  border-color: #4A5D42;
+  transform: translateY(-1px);
+}
+
+.quiz-container {
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #FFFAF4;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(124, 144, 112, 0.15);
+  border: 1px solid #7C9070;
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #4A5D42;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  margin-bottom: 1.5rem;
+  color: #4A5D42;
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .options-grid,
+  .true-false-grid {
+    grid-template-columns: 1fr;
+  }
+} 
