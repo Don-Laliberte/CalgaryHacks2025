@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Modal from '../components/Modal';
 import styles from './Login.module.css';
 
-const Login = () => {
+const Login = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +21,8 @@ const Login = () => {
       });
 
       if (response.ok) {
-        navigate('/dashboard'); // Redirect to dashboard after successful login
+        onClose();
+        navigate('/dashboard');
       } else {
         throw new Error('Login failed');
       }
@@ -28,11 +32,11 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/google'; // This should match your Google auth endpoint
+    window.location.href = 'http://localhost:3000/auth/google';
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.loginBox}>
         <h2 className={styles.title}>Login</h2>
         
@@ -83,7 +87,7 @@ const Login = () => {
           Continue with Google
         </button>
       </div>
-    </div>
+    </Modal>
   );
 };
 
