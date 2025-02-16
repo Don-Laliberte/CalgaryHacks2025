@@ -1,14 +1,15 @@
 import "./ClickableImage.css";
-import useInfoStore from "../../store";
+import useQuestionStore from "../../store";
+import QuizItem from "../QuestionModal";
 
-const ClickableImage = ({ imageSrc, message }) => {
-  const { isVisible, setMessage, hideMessage } = useInfoStore();
+const ClickableQuestion = ({ imageSrc, id }) => {
+  const { isVisible, showMessage, hideMessage } = useQuestionStore();
 
   const handleImageClick = () => {
     if (isVisible) {
       hideMessage();
     } else {
-      setMessage(message);
+      showMessage();
     }
   };
 
@@ -21,11 +22,7 @@ const ClickableImage = ({ imageSrc, message }) => {
         onClick={handleImageClick}
       />
       {isVisible && (
-        <div className="modal-overlay" onClick={hideMessage}>
-          <div className="modal-content centered" onClick={(e) => e.stopPropagation()}>
-            <p>{message}</p>
-          </div>
-        </div>
+        <QuizItem/>
       )}
     </div>
   );

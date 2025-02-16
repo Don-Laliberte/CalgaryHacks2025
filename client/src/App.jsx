@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
 import testImage from './assets/pictures/1-16dfb034.png'
-import QuizWithErrorBoundary from './components/QuestionModal';
 import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
@@ -38,10 +37,12 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/quiz" element={<QuizWithErrorBoundary />} />
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/jonathan-hudson<3" element={<div><ClickableImageWrapper 
+              imageSrc={testImage}
+              message='hello it is i jonathan hudson'/></div>}/>
             </Routes>
           </main>
         </div>

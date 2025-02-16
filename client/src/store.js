@@ -6,10 +6,14 @@ const useLogin = create((set) => {
     logout: () => set((state) => ({isLoggedIn: false}))
 })
 
-const useBubbleStore = create((set) => ({
+export const useInfoStore = create((set) => ({
     isVisible: false,
     setMessage: (msg) => set({ message: msg, isVisible: true }),
     hideMessage: () => set({ isVisible: false })
   }));
 
-export default useBubbleStore;
+  export const useQuestionStore = create((set) => ({
+    isVisible: false,
+    showMessage: () => set({ isVisible: true }),
+    hideMessage: () => set({ isVisible: false })
+}));

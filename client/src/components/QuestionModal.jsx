@@ -557,8 +557,8 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Question {question.id} of {questions.length}</h2>
           <p className="question-text">{question.question}</p>
@@ -604,88 +604,4 @@ QuizItem.propTypes = {
   isLastQuestion: PropTypes.bool.isRequired
 };
 
-const QuizContainer = () => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleStartQuiz = () => {
-    setIsLoading(true);
-    try {
-      setCurrentQuestionIndex(0);
-    } catch (error) {
-      console.error('Error starting quiz:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleNextQuestion = () => {
-    setCurrentQuestionIndex(prev => prev + 1);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="quiz-container">
-        <div className="card">
-          <p>Loading quiz...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="quiz-container">
-      {currentQuestionIndex === null ? (
-        <div className="card">
-          <h2>Wildlife Conservation Quiz</h2>
-          <p>Test your knowledge about wildlife conservation with this {questions.length}-question quiz!</p>
-          <button className="button primary" onClick={handleStartQuiz}>
-            Start Quiz
-          </button>
-        </div>
-      ) : (
-        <QuizItem
-          question={questions[currentQuestionIndex]}
-          onClose={() => setCurrentQuestionIndex(null)}
-          onNext={handleNextQuestion}
-          isLastQuestion={currentQuestionIndex === questions.length - 1}
-        />
-      )}
-    </div>
-  );
-};
-
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="p-6">
-          <Card className="p-6">
-            <h2 className="text-xl font-bold text-red-600">Something went wrong.</h2>
-            <Button onClick={() => this.setState({ hasError: false })}>Try again</Button>
-          </Card>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-// Wrap your QuizContainer with ErrorBoundary
-export default function QuizWithErrorBoundary() {
-  return (
-    <ErrorBoundary>
-      <QuizContainer />
-    </ErrorBoundary>
-  );
-} 
+export default QuizItem;
