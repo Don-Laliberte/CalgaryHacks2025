@@ -4,30 +4,59 @@ import Modal from '../components/Modal';
 import styles from './Login.module.css';
 
 const Login = ({ isOpen, onClose }) => {
+  const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
     try {
-      const response = await fetch('/api/auth/login', {
+      const endpoint = isSignup ? '/api/auth/signup' : '/api/auth/login';
+      const userData = isSignup 
+        ? { email, password, name, profileImage: '/default-profile.png' }
+        : { email, password };
+
+      console.log('Sending request to:', endpoint);
+      console.log('With data:', { ...userData, password: '***' });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(userData),
         credentials: 'include',
       });
 
-      if (response.ok) {
-        onClose();
-        navigate('/dashboard');
-      } else {
-        throw new Error('Login failed');
+      console.log('Response status:', response.status);
+      
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse response as JSON:', e);
+        throw new Error('Server response was not in the expected format');
       }
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Authentication failed');
+      }
+
+      console.log('Login successful:', data);
+      onClose();
+      navigate('/dashboard');
+
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Full authentication error:', error);
+      setError(error.message || 'An error occurred during authentication');
     }
   };
 
@@ -35,12 +64,37 @@ const Login = ({ isOpen, onClose }) => {
     window.location.href = 'http://localhost:3000/auth/google';
   };
 
+  const toggleMode = () => {
+    setIsSignup(!isSignup);
+    setError('');
+    setEmail('');
+    setPassword('');
+    setName('');
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.loginBox}>
-        <h2 className={styles.title}>Login</h2>
+        <h2 className={styles.title}>{isSignup ? 'Sign Up' : 'Login'}</h2>
+        
+        {error && <div className={styles.error}>{error}</div>}
         
         <form onSubmit={handleSubmit} className={styles.loginForm}>
+          {isSignup && (
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                required={isSignup}
+                minLength={2}
+              />
+            </div>
+          )}
+          
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
             <input
@@ -62,11 +116,12 @@ const Login = ({ isOpen, onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
+              minLength={6}
             />
           </div>
 
           <button type="submit" className={styles.loginButton}>
-            Sign in
+            {isSignup ? 'Sign up' : 'Sign in'}
           </button>
         </form>
 
@@ -85,6 +140,10 @@ const Login = ({ isOpen, onClose }) => {
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
           </svg>
           Continue with Google
+        </button>
+
+        <button onClick={toggleMode} className={styles.toggleMode}>
+          {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
         </button>
       </div>
     </Modal>
