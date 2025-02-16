@@ -9,6 +9,7 @@ import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 import { questions } from './data/quizQuestions.js';
 import ClickableQuestion from './components/ClickableAssets/ClickableQuestion.jsx';
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
