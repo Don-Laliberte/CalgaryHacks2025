@@ -1,56 +1,32 @@
 import React from 'react';
-import { useQuizStore } from "../store";
-import { useImageStore } from "../store"; // Import image store
-import QuizItem from "../components/QuizItem";
-import ClickableImage from "../components/ClickableAssets/ClickableImage";
-import ClickableQuestion from "../components/ClickableAssets/ClickableQuestion";
+import { useNavigate } from 'react-router-dom';
 
-const HomePage = () => {
-  const { isOpen, currentQuestion, closeQuizModal } = useQuizStore(); // Quiz state
-  const { isImageOpen, closeImageModal } = useImageStore(); // Image modal state
+const Home = () => {
+  const navigate = useNavigate();
 
   return (
-    <div className="home-container">
+    <div className="fixed inset-0 mt-16">
+      {/* Background */}
       <img 
-        src="/background-scrollable.png" 
+        src="/images/background.png" 
         alt="background" 
-        className="background-image"
+        className="absolute inset-0 w-full h-full object-cover"
       />
-
-      {/* Show QuizItem when a ClickableQuestion is clicked */}
-      {isOpen && currentQuestion && (
-        <QuizItem question={currentQuestion} onClose={closeQuizModal} />
-      )}
-
-      {/* Show ClickableImage message when a ClickableImage is clicked */}
-      {isImageOpen && (
-        <div className="modal-overlay image-block-overlay" onClick={closeImageModal}>
-          {/* The modal content will be inside ClickableImage */}
-        </div>
-      )}
-
-      {/* Hide everything else when either quiz OR image modal is open */}
-      {!isOpen && !isImageOpen && (
-        <div className="clickable-images-container">
-          {/* Clickable Questions */}
-          <ClickableQuestion imageSrc="/bear2.png" questionId={1} top={150} left={300} />
-          <ClickableQuestion imageSrc="/panda.png" questionId={2} top={200} left={1200} />
-          <ClickableQuestion imageSrc="/makima.png" questionId={3} top={400} left={800} />
-          <ClickableQuestion imageSrc="/aki.png" questionId={4} top={350} left={1600} />
-          <ClickableQuestion imageSrc="/walrus.png" questionId={5} top={600} left={400} />
-          <ClickableQuestion imageSrc="/elefant-1.png" questionId={6} top={500} left={1400} />
-
-          {/* Clickable Images */}
-          <ClickableImage imageSrc="/images/ash.png" altText="Ash Image" factIndex={0} style={{ top: '200px', left: '600px' }} />
-          <ClickableImage imageSrc="/images/tree.png" altText="Tree Image" factIndex={1} style={{ top: '250px', left: '1800px' }} />
-          <ClickableImage imageSrc="/images/bush-1.png" altText="Bush Image" factIndex={2} style={{ top: '450px', left: '1000px' }} />
-          <ClickableImage imageSrc="/images/treepine.png" altText="Tree Spine Image" factIndex={3} style={{ top: '400px', left: '2000px' }} />
-          <ClickableImage imageSrc="/images/Untitled_Artwork1.png" altText="Artwork Image" factIndex={4} style={{ top: '650px', left: '1200px' }} />
-          <ClickableImage imageSrc="/images/bush-2.png" altText="Bush 2 Image" factIndex={5} style={{ top: '550px', left: '1900px' }} />
-        </div>
-      )}
+      
+      {/* Semi-transparent overlay */}
+      <div className="absolute inset-0 bg-black/20" />
+      
+      {/* Button container */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <button 
+          className="bg-green-600 hover:bg-green-700 text-white text-xl font-bold py-4 px-8 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg z-10"
+          onClick={() => navigate('/quiz')}
+        >
+          Start Quiz
+        </button>
+      </div>
     </div>
   );
 };
 
-export default HomePage;
+export default Home; 
