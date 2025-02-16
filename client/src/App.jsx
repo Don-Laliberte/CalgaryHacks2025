@@ -9,6 +9,7 @@ import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 import Leaderboard from './pages/Leaderboard.jsx';
 import About from './pages/About.jsx';
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
