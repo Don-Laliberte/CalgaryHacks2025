@@ -15,6 +15,7 @@
 .modal-content {
     min-width: 350px;
     max-width: 350px;
+    width: 25vw;
     background: #FFFAF4;
     border-radius: 8px;
     border: 1px solid #7C9070;

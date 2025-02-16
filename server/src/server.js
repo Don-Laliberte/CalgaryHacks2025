@@ -11,6 +11,7 @@ import authRoute from "./routes/auth.js"
 import updateUser from "./routes/updateUser.js"
 import checkAuth from "./routes/checkAuth.js"
 import leaderBoard from "./routes/getLeaderboard.js"
+import { connectPhidget } from "./phidget/phidgetServer.js";
 dotenv.config();
 
 const app = express();
