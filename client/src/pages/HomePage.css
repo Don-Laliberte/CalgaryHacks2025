@@ -16,6 +16,9 @@ html, body {
   overscroll-behavior-x: contain; /* Contain horizontal scroll */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  scroll-behavior: auto; /* Remove smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable touch scrolling but without momentum */
+  touch-action: pan-x; /* Only allow horizontal panning */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -32,7 +35,6 @@ html, body {
 .background-image {
   width: 200vw;
   height: 100vh;
-  object-fit: cover;
   object-position: left center;
 }
 
