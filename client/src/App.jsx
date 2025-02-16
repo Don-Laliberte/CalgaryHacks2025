@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
+import testImage from './assets/pictures/1-16dfb034.png'
 import QuizWithErrorBoundary from './components/QuestionModal';
 import Login from './pages/Login.jsx'
 import { useState, useEffect } from 'react';
@@ -40,10 +42,13 @@ function App() {
           <Navbar></Navbar>
           <div className="pt-16">
             <Routes>
-              <Route path="/" element={<div>Home Page</div>} />
+              <Route path="/" element={<div></div>} />
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>}></Route>
+              <Route path="/jonathan-hudson<3" element={<div><ClickableImageWrapper 
+              imageSrc={testImage}
+              message='skib'/></div>}/>
             </Routes>
           </div>
         </div>
