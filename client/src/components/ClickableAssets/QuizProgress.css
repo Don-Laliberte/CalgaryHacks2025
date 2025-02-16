@@ -1,11 +1,81 @@
 .quiz-progress {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-  }
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.progress-text {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #4A5D42;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 10px;
+  background-color: #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4A5D42;
+  transition: width 0.3s ease;
+}
+
+.congrats-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.congrats-modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.congrats-modal h2 {
+  color: #4A5D42;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.congrats-modal p {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.congrats-modal .close-button {
+  background-color: #4A5D42;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.congrats-modal .close-button:hover {
+  background-color: #5B7350;
+}
   
