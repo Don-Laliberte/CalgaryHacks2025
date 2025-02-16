@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 import { questions } from './data/quizQuestions.js';
+import ClickableQuestion from './components/ClickableImageAssets/ClickableQuestion.jsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,9 +42,9 @@ function App() {
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>} />
-              <Route path="/jonathan-hudson<3" element={<div><ClickableImage 
+              <Route path="/jonathan-hudson<3" element={<div><ClickableQuestion 
               imageSrc={testImage}
-              message='hello it is i jonathan hudson'/></div>}/>
+              question = {questions[0]}/></div>}/>
             </Routes>
           </main>
         </div>

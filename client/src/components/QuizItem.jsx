@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { usePhidget } from './PhidgetKit';
 import './QuestionModal.css';
+import { useQuizStore } from '../store';
 
-const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
+const QuizItem = ({ question }) => {
+  const { isOpen, question, closeQuizModal } = useQuizStore()
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -135,11 +137,12 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
     }
   };
 
+  if (!isOpen || !question) return null;
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={closeQuizModal}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Question {question.id} of {questions.length}</h2>
           <p className="question-text">{question.question}</p>
         </div>
 
@@ -148,6 +151,7 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
           
           {showExplanation && (
             <div className={`explanation ${isCorrect ? 'correct' : 'incorrect'}`}>
+              
               <p>{isCorrect ? "Correct!" : "Incorrect!"}</p>
               {question.explanation && <p>{question.explanation}</p>}
             </div>
@@ -171,11 +175,10 @@ QuizItem.propTypes = {
     question: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.string),
     correctAnswer: PropTypes.string.isRequired,
+    isDone: PropTypes.string.isRequired,
     explanation: PropTypes.string
   }).isRequired,
   onClose: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  isLastQuestion: PropTypes.bool.isRequired
 };
 
 export default QuizItem;

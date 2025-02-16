@@ -1,6 +1,6 @@
 import "./ClickableImage.css";
-import useQuestionStore from "../../store";
-import QuizItem from "../QuestionModal";
+import {useQuestionStore} from "../../store";
+import QuizItem from "../QuizItem";
 
 const ClickableQuestion = ({ imageSrc, question }) => {
   const { isVisible, showMessage, hideMessage } = useQuestionStore();
@@ -22,7 +22,7 @@ const ClickableQuestion = ({ imageSrc, question }) => {
         onClick={handleImageClick}
       />
       {isVisible && (
-        <QuizItem/>
+        <QuizItem question={question} onClose={() => (console.log('question closed'))}/>
       )}
     </div>
   );

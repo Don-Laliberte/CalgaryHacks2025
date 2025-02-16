@@ -5,20 +5,23 @@ export const questions = [
     question: 'What is the average decline in species populations since 1970?',
     options: ['50%', '69%', '30%', '80%'],
     correctAnswer: '69%',
+    isDone: false
   },
   {
     id: 2,
     type: 'true-false',
     question: 'Giant pandas are found in the wild in several countries across Asia.',
     correctAnswer: 'False',
-    explanation: 'They are found only in China.'
+    explanation: 'They are found only in China.',
+    isDone: false
   },
   {
     id: 3,
     type: 'multiple-choice',
     question: 'Which species became the face of a global campaign to stop the Don Sahong dam on the Mekong River?',
     options: ['Giant panda', 'Irrawaddy dolphin', 'Tiger', 'Elephant'],
-    correctAnswer: 'Irrawaddy dolphin'
+    correctAnswer: 'Irrawaddy dolphin',
+    isDone: false
   },
   {
     id: 4,
@@ -30,28 +33,32 @@ export const questions = [
       'Maintain current population levels',
       'End tiger poaching completely'
     ],
-    correctAnswer: 'Double the number of wild tigers by 2022'
+    correctAnswer: 'Double the number of wild tigers by 2022',
+    isDone: false
   },
   {
     id: 5,
     type: 'multiple-choice',
     question: 'Approximately how many elephants are poached each year for their tusks?',
     options: ['5,000', '10,000', '20,000', '50,000'],
-    correctAnswer: '20,000'
+    correctAnswer: '20,000',
+    isDone: false
   },
   {
     id: 6,
     type: 'multiple-choice',
     question: 'In which country did WWF help end the legal ivory trade?',
     options: ['Thailand', 'China', 'Kenya', 'India'],
-    correctAnswer: 'China'
+    correctAnswer: 'China',
+    isDone: false
   },
   {
     id: 7,
     type: 'multiple-choice',
     question: 'Which U.S. administration revoked the executive order that sought to open Arctic waters to new drilling activities?',
     options: ['Obama', 'Trump', 'Biden', 'Bush'],
-    correctAnswer: 'Biden'
+    correctAnswer: 'Biden',
+    isDone: false
   },
   {
     id: 8,
@@ -63,7 +70,8 @@ export const questions = [
       'Increased competition for food',
       'Overfishing'
     ],
-    correctAnswer: 'Direct contact with spilled oil and persistent toxic pollutants'
+    correctAnswer: 'Direct contact with spilled oil and persistent toxic pollutants',
+    isDone: false
   },
   {
     id: 9,
@@ -75,15 +83,16 @@ export const questions = [
       'They boost tourism',
       'They are used as pack animals'
     ],
-    correctAnswer: 'They help provide food security and support cultural practices'
+    correctAnswer: 'They help provide food security and support cultural practices',
+    isDone: false
   },
   {
     id: 10,
     type: 'true-false',
     question: 'Chimpanzee populations are stable and thriving across their range.',
     correctAnswer: 'False',
-    explanation: 'They are being pushed toward extinction.'
-
+    explanation: 'They are being pushed toward extinction.',
+    isDone: false
   },
   {
     id: 11,

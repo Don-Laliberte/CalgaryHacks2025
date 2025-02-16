@@ -17,3 +17,10 @@ export const useInfoStore = create((set) => ({
     showMessage: () => set({ isVisible: true }),
     hideMessage: () => set({ isVisible: false })
 }));
+
+export const useQuizStore = create((set) => ({
+  isOpen: false,
+  question: null,
+  openQuizModal: (question) => set({ isOpen: true, question }),
+  closeQuizModal: () => set({ isOpen: false, question: null }),
+}));
