@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import QuizWithErrorBoundary from './components/QuestionModal';
-import './App.css'
 import Login from './pages/Login.jsx'
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
@@ -38,12 +37,10 @@ function App() {
     <Router>
       <PhidgetErrorBoundary>
         <div className="min-h-screen">
-          <Navbar />
+          <Navbar></Navbar>
           <div className="pt-16">
             <Routes>
               <Route path="/" element={<div>Home Page</div>} />
-              <Route path="/quiz" element={<QuizWithErrorBoundary />} />
-              <Route path="/start-quiz" element={<QuizWithErrorBoundary />} />
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>}></Route>

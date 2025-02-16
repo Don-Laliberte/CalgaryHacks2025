@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import PropTypes from 'prop-types';
 import { usePhidget } from './PhidgetKit';
+import './QuestionModal.css';
 
 // Questions array from the old file
 const questions = [
@@ -431,7 +429,6 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [highlightedOption, setHighlightedOption] = useState(0);
-  const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
   const { phidget, isConnected } = usePhidget();
 
   // Reset states when question changes
@@ -440,7 +437,6 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
     setIsCorrect(null);
     setShowExplanation(false);
     setHighlightedOption(0);
-    setIsProcessingAnswer(false);
   }, [question.id]);
 
   useEffect(() => {
@@ -484,89 +480,75 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
   }, [isConnected, question.type, phidget, highlightedOption, question.options]);
 
   const handleAnswerSelect = async (answer) => {
-    if (isProcessingAnswer) return; // Prevent multiple submissions
-    setIsProcessingAnswer(true);
+    setSelectedAnswer(answer);
+    const correct = answer === question.correctAnswer;
+    setIsCorrect(correct);
+    setShowExplanation(true);
 
-    try {
-      setSelectedAnswer(answer);
-      const correct = answer === question.correctAnswer;
-      setIsCorrect(correct);
-      setShowExplanation(true);
+    if (isConnected) {
+      await phidget.setGreenLED(false);
+      await phidget.setRedLED(false);
 
-      if (isConnected) {
-        await Promise.all([
-          phidget.setGreenLED(false),
-          phidget.setRedLED(false)
-        ]);
-
-        await phidget[correct ? 'setGreenLED' : 'setRedLED'](true);
-
-        setTimeout(async () => {
-          try {
-            await Promise.all([
-              phidget.setGreenLED(false),
-              phidget.setRedLED(false)
-            ]);
-          } catch (error) {
-            console.error('Error resetting LEDs:', error);
-          }
-        }, 2000);
+      if (correct) {
+        await phidget.setGreenLED(true);
+      } else {
+        await phidget.setRedLED(true);
       }
-    } catch (error) {
-      console.error('Error processing answer:', error);
-    } finally {
-      setIsProcessingAnswer(false);
+
+      setTimeout(async () => {
+        await phidget.setGreenLED(false);
+        await phidget.setRedLED(false);
+      }, 2000);
     }
   };
 
   const renderAnswerOptions = () => {
     if (question.type === 'multiple-choice') {
       return (
-        <div className="space-y-4">
+        <div className="options-container">
           {isConnected && (
-            <div className="bg-gray-100 p-4 rounded-md text-sm text-gray-700">
+            <div className="phidget-instructions">
               Using Phidget Kit: Press Red button to move selection, Green button to confirm
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="options-grid">
             {question.options.map((option, index) => (
-              <Button
+              <button
                 key={option}
                 onClick={() => handleAnswerSelect(option)}
-                variant={selectedAnswer === option 
-                  ? (isCorrect ? 'success' : 'destructive') 
-                  : (isConnected && index === highlightedOption ? 'outline-highlighted' : 'outline')
-                }
-                className={`p-4 h-auto transition-all duration-200 hover:scale-105 hover:shadow-md 
-                  ${isConnected && index === highlightedOption 
-                    ? 'bg-green-50 border-green-600 ring-2 ring-green-600 ring-opacity-50' 
-                    : 'hover:bg-green-50 hover:border-green-600'} 
-                  active:scale-95`}
+                className={`option-button ${
+                  selectedAnswer === option 
+                    ? (isCorrect ? 'correct' : 'incorrect') 
+                    : (isConnected && index === highlightedOption ? 'highlighted' : '')
+                }`}
               >
                 {option}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
       );
     } else if (question.type === 'true-false') {
       return (
-        <div className="space-y-4">
+        <div className="options-container">
           {isConnected && (
-            <div className="bg-gray-100 p-4 rounded-md text-sm text-gray-700">
+            <div className="phidget-instructions">
               Using Phidget Kit: Press Green button for True, Red button for False
             </div>
           )}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="true-false-grid">
             {['True', 'False'].map((option) => (
-              <Button
+              <button
                 key={option}
                 onClick={() => handleAnswerSelect(option)}
-                variant={selectedAnswer === option ? (isCorrect ? "success" : "destructive") : "outline"}
-                className="p-4 transition-all duration-200 hover:scale-105 hover:shadow-md hover:bg-green-50 hover:border-green-600 active:scale-95"
+                className={`option-button ${
+                  selectedAnswer === option 
+                    ? (isCorrect ? 'correct' : 'incorrect') 
+                    : ''
+                }`}
               >
                 {option}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -575,30 +557,36 @@ const QuizItem = ({ question, onClose, onNext, isLastQuestion }) => {
   };
 
   return (
-    <AlertDialog open={true}>
-      <AlertDialogContent className="max-w-3xl">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Question {question.id} of {questions.length}</AlertDialogTitle>
-          <AlertDialogDescription className="space-y-4">
-            <p className="text-lg font-medium">{question.question}</p>
-            {renderAnswerOptions()}
-            
-            {showExplanation && (
-              <div className={`mt-4 p-4 rounded-md ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
-                <p>{isCorrect ? "Correct!" : "Incorrect!"}</p>
-                {question.explanation && <p className="mt-2">{question.explanation}</p>}
-              </div>
-            )}
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter className="space-x-2">
-          <AlertDialogCancel onClick={onClose}>Close</AlertDialogCancel>
-          {showExplanation && !isLastQuestion && (
-            <Button onClick={onNext}>Next Question</Button>
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>Question {question.id} of {questions.length}</h2>
+          <p className="question-text">{question.question}</p>
+        </div>
+
+        <div className="modal-body">
+          {renderAnswerOptions()}
+          
+          {showExplanation && (
+            <div className={`explanation ${isCorrect ? 'correct' : 'incorrect'}`}>
+              <p>{isCorrect ? "Correct!" : "Incorrect!"}</p>
+              {question.explanation && <p>{question.explanation}</p>}
+            </div>
           )}
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </div>
+
+        <div className="modal-footer">
+          <button className="button secondary" onClick={onClose}>
+            Close
+          </button>
+          {showExplanation && !isLastQuestion && (
+            <button className="button primary" onClick={onNext}>
+              Next Question
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -637,22 +625,24 @@ const QuizContainer = () => {
 
   if (isLoading) {
     return (
-      <div className="p-6">
-        <Card className="p-6">
+      <div className="quiz-container">
+        <div className="card">
           <p>Loading quiz...</p>
-        </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="quiz-container">
       {currentQuestionIndex === null ? (
-        <Card className="p-6">
-          <h2 className="text-2xl font-bold mb-4">Wildlife Conservation Quiz</h2>
-          <p className="mb-4">Test your knowledge about wildlife conservation with this {questions.length}-question quiz!</p>
-          <Button onClick={handleStartQuiz}>Start Quiz</Button>
-        </Card>
+        <div className="card">
+          <h2>Wildlife Conservation Quiz</h2>
+          <p>Test your knowledge about wildlife conservation with this {questions.length}-question quiz!</p>
+          <button className="button primary" onClick={handleStartQuiz}>
+            Start Quiz
+          </button>
+        </div>
       ) : (
         <QuizItem
           question={questions[currentQuestionIndex]}
