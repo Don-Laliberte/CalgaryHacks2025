@@ -1,7 +1,22 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 .home-container {
-  min-height: 100vh;
-  width: 100%;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.scrollable-container {
+  position: absolute;
+  width: 200vw;
+  height: 100vh;
 }
 
 .background-container {
@@ -14,28 +29,28 @@
 }
 
 .background-image {
-  width: 100%;
+  width: 200vw;
   height: 100vh;
   object-fit: cover;
-  object-position: center;
-  position: fixed;
-  top: 0;
-  left: 0;
+  object-position: left center;
 }
 
 .content-container {
-  position: relative;
-  min-height: 100vh;
+  position: fixed;
+  top: 64px;
+  left: 0;
   width: 100%;
+  height: calc(100vh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 1;
+  pointer-events: none;
 }
 
 .start-button {
-  background-color: rgb(22 163 74); /* green-600 */
+  background-color: rgb(22 163 74);
   color: white;
   font-size: 1.25rem;
   font-weight: bold;
@@ -43,9 +58,22 @@
   border-radius: 0.5rem;
   transition: all 200ms;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  z-index: 2;
+  pointer-events: auto;
 }
 
 .start-button:hover {
-  background-color: rgb(21 128 61); /* green-700 */
+  background-color: rgb(21 128 61);
   transform: scale(1.05);
-} 
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.home-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.home-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
