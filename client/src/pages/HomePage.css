@@ -13,12 +13,10 @@ html, body {
   bottom: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  overscroll-behavior-x: contain; /* Contain horizontal scroll */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  scroll-behavior: auto; /* Remove smooth scrolling */
-  -webkit-overflow-scrolling: touch; /* Enable touch scrolling but without momentum */
-  touch-action: pan-x; /* Only allow horizontal panning */
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: auto;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -26,15 +24,10 @@ html, body {
   display: none; 
 }
 
-.scrollable-container {
-  position: absolute;
-  width: 200vw;
-  height: 100vh;
-}
-
 .background-image {
-  width: 200vw;
+  width: 200vw; /* Keep the wide background */
   height: 100vh;
+  object-fit: cover;
   object-position: left center;
 }
 
@@ -54,4 +47,23 @@ html, body {
 .start-button:hover {
   background-color: rgb(21 128 61);
   transform: scale(1.05);
+}
+
+.clickable-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.image-container {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.responsive {
+  width: 100px;
+  height: auto;
 }

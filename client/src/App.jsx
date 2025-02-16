@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
-import QuizWithErrorBoundary from './components/QuestionModal';
+import ClickableImage from './components/ClickableAssets/ClickableImage.jsx';
+import testImage from './assets/pictures/1-16dfb034.png'
 import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
-import Leaderboard from './pages/Leaderboard.jsx';
-import About from './pages/About.jsx';
+import { questions } from './data/quizQuestions.js';
+import ClickableQuestion from './components/ClickableAssets/ClickableQuestion.jsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,10 +39,12 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/quiz" element={<QuizWithErrorBoundary />} />
-              <Route path="/leaderboard" element={<Leaderboard/>} />
-              <Route path="/about" element={<About/>} />
+              <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
+              <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/jonathan-hudson<3" element={<div><ClickableQuestion 
+              imageSrc={testImage}
+              question={questions[0]}/></div>}/>
             </Routes>
           </main>
         </div>

@@ -1,0 +1,23 @@
+.clickable-question {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  
+  .hover-effect {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .hover-effect:hover {
+    transform: scale(0.9) rotate(-45deg);
+  }
+  
+  .hover-effect:hover:nth-child(even) {
+    transform: scale(0.9) rotate(45deg);
+  }
+  
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  
