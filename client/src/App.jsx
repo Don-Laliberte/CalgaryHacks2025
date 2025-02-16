@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
+import ClickableImage from './components/ClickableImageAssets/ClickableImage.jsx';
 import testImage from './assets/pictures/1-16dfb034.png'
 import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
+import { questions } from './data/quizQuestions.js';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +41,7 @@ function App() {
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
               <Route path="/login" element={<Login/>} />
-              <Route path="/jonathan-hudson<3" element={<div><ClickableImageWrapper 
+              <Route path="/jonathan-hudson<3" element={<div><ClickableImage 
               imageSrc={testImage}
               message='hello it is i jonathan hudson'/></div>}/>
             </Routes>

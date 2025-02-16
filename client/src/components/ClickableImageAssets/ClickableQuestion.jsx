@@ -2,7 +2,7 @@ import "./ClickableImage.css";
 import useQuestionStore from "../../store";
 import QuizItem from "../QuestionModal";
 
-const ClickableQuestion = ({ imageSrc, id }) => {
+const ClickableQuestion = ({ imageSrc, question }) => {
   const { isVisible, showMessage, hideMessage } = useQuestionStore();
 
   const handleImageClick = () => {
@@ -28,4 +28,4 @@ const ClickableQuestion = ({ imageSrc, id }) => {
   );
 };
   
-  export default ClickableImage;
+  export default ClickableQuestion;

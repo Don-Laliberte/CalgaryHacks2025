@@ -1,5 +1,5 @@
 import "./ClickableImage.css";
-import useInfoStore from "../../store";
+import { useInfoStore } from "../../store";
 
 const ClickableImage = ({ imageSrc, message }) => {
   const { isVisible, setMessage, hideMessage } = useInfoStore();
