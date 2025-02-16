@@ -31,7 +31,7 @@ app.use(passport.session());
 app.use("/auth", authRoute)
 app.use("/api", checkAuth)
 app.use("/api", updateUser)
-app.use(leaderBoard)
+app.use("/api", leaderBoard)
 
 const server = http.createServer(app);
 
