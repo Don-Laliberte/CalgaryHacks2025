@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import Login from '../pages/Login';
+import AboutModal from './AboutModal';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const location = useLocation();
 
   const isActivePath = (path) => {
@@ -37,6 +39,7 @@ const Navbar = () => {
                 {label}
               </Link>
             ))}
+
             <button 
               className="nav-button"
               onClick={() => setIsLoginOpen(true)}
@@ -68,13 +71,24 @@ const Navbar = () => {
                 {label}
               </Link>
             ))}
-            <Link 
-              to="/login" 
+            <button 
+              className="mobile-nav-link"
+              onClick={() => {
+                setIsAboutOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              About
+            </button>
+            <button 
               className="mobile-nav-button"
-              onClick={() => setIsLoginOpen(true)}
+              onClick={() => {
+                setIsLoginOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
             >
               Login
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
@@ -82,6 +96,10 @@ const Navbar = () => {
       <Login 
         isOpen={isLoginOpen} 
         onClose={() => setIsLoginOpen(false)} 
+      />
+      <AboutModal 
+        isOpen={isAboutOpen}
+        onClose={() => setIsAboutOpen(false)}
       />
     </>  
   );

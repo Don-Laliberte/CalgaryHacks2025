@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import QuizWithErrorBoundary from './components/QuestionModal';
 import Login from './pages/Login.jsx'
+import HomePage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 
@@ -13,7 +14,6 @@ function App() {
     const initializeApp = async () => {
       try {
         setIsLoading(true);
-        // Add any initialization logic here
         setIsLoading(false);
       } catch (error) {
         console.error('App initialization error:', error);
@@ -25,27 +25,23 @@ function App() {
     initializeApp();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Router>
       <PhidgetErrorBoundary>
-        <div className="min-h-screen">
-          <Navbar></Navbar>
-          <div className="pt-16">
+        <div className="flex flex-col h-screen">
+          <Navbar />
+          <main className="flex-1">
             <Routes>
-              <Route path="/" element={<div>Home Page</div>} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/quiz" element={<QuizWithErrorBoundary />} />
               <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
               <Route path="/about" element={<div>About Page</div>} />
-              <Route path="/login" element={<Login/>}></Route>
+              <Route path="/login" element={<Login/>} />
             </Routes>
-          </div>
+          </main>
         </div>
       </PhidgetErrorBoundary>
     </Router>
