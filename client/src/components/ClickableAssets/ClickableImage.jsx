@@ -1,6 +1,7 @@
 import "./ClickableImage.css";
-import { useInfoStore } from "../../store";
-import React from 'react';
+import { useImageStore } from "../../store";
+import React from "react";
+import ImageModal from "./ImageModal"; // Import the new modal
 
 const facts = [
   "Since 1970, species populations have declined by an average of 69%.",
@@ -12,15 +13,10 @@ const facts = [
 ];
 
 const ClickableImage = ({ imageSrc, altText, factIndex, style }) => {
-  const { isVisible, currentMessage, setMessage, hideMessage } = useInfoStore();
+  const { openImageModal } = useImageStore();
 
   const handleImageClick = () => {
-    if (isVisible) {
-      hideMessage();
-    } else {
-      const fact = facts[factIndex];
-      setMessage(fact);
-    }
+    openImageModal(facts[factIndex]); // Open modal with correct fact
   };
 
   return (
@@ -31,14 +27,6 @@ const ClickableImage = ({ imageSrc, altText, factIndex, style }) => {
         className="responsive hover-effect"
         onClick={handleImageClick}
       />
-      {isVisible && currentMessage === facts[factIndex] && (
-        <div className="modal-overlay" onClick={hideMessage}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <p className="fact-text">{facts[factIndex]}</p>
-            <button className="close-button" onClick={hideMessage}>Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -7,14 +7,13 @@ const useLogin = create((set) => {
     logout: () => set((state) => ({isLoggedIn: false}))
 })
 
-const useInfoStore = create((set) => ({
-  isVisible: false,
-  currentMessage: '',
-  setMessage: (message) => set({ isVisible: true, currentMessage: message }),
-  hideMessage: () => set({ isVisible: false, currentMessage: '' }),
-}));
+export const useImageStore = create((set) => ({
+  isImageOpen: false,
+  currentMessage: null, // Store the active message
 
-export { useInfoStore };
+  openImageModal: (message) => set({ isImageOpen: true, currentMessage: message }),
+  closeImageModal: () => set({ isImageOpen: false, currentMessage: null }),
+}));
 
 export const useQuestionStore = create((set) => ({
   isVisible: false,
@@ -24,10 +23,11 @@ export const useQuestionStore = create((set) => ({
 
 export const useQuizStore = create((set) => ({
   isOpen: false,
-  question: null,
-  questions: questions,
-  openQuizModal: (question) => set({ isOpen: true, question }),
-  closeQuizModal: () => set({ isOpen: false, question: null }),
+  currentQuestion: null, // Store the active question
+  questions:questions,
+
+  openQuizModal: (question) => set({ isOpen: true, currentQuestion: question }),
+  closeQuizModal: () => set({ isOpen: false, currentQuestion: null }),
   setQuestionDone: (questionId) => set((state) => ({
     questions: state.questions.map(q => 
       q.id === questionId ? { ...q, isDone: true } : q
