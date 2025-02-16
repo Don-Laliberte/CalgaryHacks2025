@@ -5,6 +5,10 @@ import http from "node:http";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import passport from "passport";
+import authRoute from "./routes/auth.js"
+import updateUser from "./routes/updateUser.js"
+import checkAuth from "./routes/checkAuth.js"
 dotenv.config();
 
 const app = express();
@@ -19,6 +23,14 @@ app.use(session({
     secure: false,
   },
 }))
+app.use(passport.initialize());
+app.use(passport.session());
+
+//routes bud
+app.use("/auth", authRoute)
+app.use("/api", checkAuth)
+app.use(updateUser)
+
 
 const server = http.createServer(app);
 
