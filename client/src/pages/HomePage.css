@@ -67,3 +67,17 @@ html, body {
   width: 100px;
   height: auto;
 }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  font-size: 1.5rem;
+  z-index: 9999;
+}
