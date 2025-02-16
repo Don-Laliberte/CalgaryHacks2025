@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/axiosInstance.js";
+import Modal from "../components/Modal.jsx";
 import "./Leaderboard.css";
 
-const Leaderboard = () => {
+const Leaderboard = ({ isOpen, onClose }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,6 +34,7 @@ const Leaderboard = () => {
   }
 
   return (
+    <Modal isOpen={isOpen} onClose={onClose}>
     <div className="leaderboard-container">
       <h2 className="leaderboard-title">Global Leaderboards</h2>
       <div className="leaderboard-list">
@@ -50,6 +52,7 @@ const Leaderboard = () => {
         ))}
       </div>
     </div>
+    </Modal>
   );
 };
 
