@@ -12,36 +12,30 @@ const facts = [
 ];
 
 const ClickableImage = ({ imageSrc, altText, factIndex, style }) => {
-  const { isVisible, setMessage, hideMessage } = useInfoStore();
+  const { isVisible, currentMessage, setMessage, hideMessage } = useInfoStore();
 
   const handleImageClick = () => {
     if (isVisible) {
       hideMessage();
     } else {
-      setMessage(facts[factIndex]);
+      const fact = facts[factIndex];
+      setMessage(fact);
     }
   };
 
-  // Combine the passed style with additional positioning styles
-  const combinedStyle = {
-    ...style,
-    position: 'absolute',
-    zIndex: 20,
-  };
-
   return (
-    <div className="image-container" style={combinedStyle}>
+    <div className="image-container" style={style}>
       <img
         src={imageSrc}
         alt={altText}
         className="responsive hover-effect"
         onClick={handleImageClick}
-        style={{ width: '100px', height: 'auto' }}
       />
-      {isVisible && (
+      {isVisible && currentMessage === facts[factIndex] && (
         <div className="modal-overlay" onClick={hideMessage}>
-          <div className="modal-content centered" onClick={(e) => e.stopPropagation()}>
-            <p>{facts[factIndex]}</p>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <p className="fact-text">{facts[factIndex]}</p>
+            <button className="close-button" onClick={hideMessage}>Close</button>
           </div>
         </div>
       )}

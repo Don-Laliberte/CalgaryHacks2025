@@ -7,16 +7,19 @@ const useLogin = create((set) => {
     logout: () => set((state) => ({isLoggedIn: false}))
 })
 
-export const useInfoStore = create((set) => ({
-    isVisible: false,
-    setMessage: (msg) => set({ message: msg, isVisible: true }),
-    hideMessage: () => set({ isVisible: false })
-  }));
+const useInfoStore = create((set) => ({
+  isVisible: false,
+  currentMessage: '',
+  setMessage: (message) => set({ isVisible: true, currentMessage: message }),
+  hideMessage: () => set({ isVisible: false, currentMessage: '' }),
+}));
 
-  export const useQuestionStore = create((set) => ({
-    isVisible: false,
-    showMessage: () => set({ isVisible: true }),
-    hideMessage: () => set({ isVisible: false })
+export { useInfoStore };
+
+export const useQuestionStore = create((set) => ({
+  isVisible: false,
+  showMessage: () => set({ isVisible: true }),
+  hideMessage: () => set({ isVisible: false })
 }));
 
 export const useQuizStore = create((set) => ({
@@ -26,8 +29,8 @@ export const useQuizStore = create((set) => ({
   openQuizModal: (question) => set({ isOpen: true, question }),
   closeQuizModal: () => set({ isOpen: false, question: null }),
   setQuestionDone: (questionId) => set((state) => ({
-    question: state.question && state.question.id === questionId 
-      ? { ...state.question, isDone: true } 
-      : state.question,
+    questions: state.questions.map(q => 
+      q.id === questionId ? { ...q, isDone: true } : q
+    ),
   })),
 }));
