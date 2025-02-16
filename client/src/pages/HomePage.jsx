@@ -9,7 +9,7 @@ const HomePage = () => {
     <div className="relative w-full h-full">
       {/* Background Container */}
       <img 
-        src="/images/background.png" 
+        src="/images/background-upscaled.jpg" 
         alt="background" 
         className="background-image"
       />
