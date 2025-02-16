@@ -2,23 +2,19 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import Login from '../pages/Login';
-import AboutModal from './AboutModal';
+import AboutModal from '../pages/About';
+import Leaderboard from '../pages/Leaderboard';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const location = useLocation();
 
   const isActivePath = (path) => {
     return location.pathname === path;
   };
-
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/leaderboard', label: 'Leaderboard' },
-    { path: '/about', label: 'About' }
-  ];
 
   return (
     <>
@@ -30,16 +26,33 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="nav-menu">
-            {navLinks.map(({ path, label }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`nav-link ${isActivePath(path) ? 'active' : ''}`}
-              >
-                {label}
-              </Link>
-            ))}
-
+            <Link
+              to="/"
+              className={`nav-link ${isActivePath('/levelselection') ? 'active' : ''}`}
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Level Selection
+            </Link>
+            <Link
+              to="/"
+              className={`nav-link ${isActivePath('/leaderboard') ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsLeaderboardOpen(true);
+              }}
+            >
+              Leaderboard
+            </Link>
+            <Link
+              to="/"
+              className={`nav-link ${isActivePath('/about') ? 'active' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsAboutOpen(true);
+              }}
+            >
+              About
+            </Link>
             <button 
               className="nav-button"
               onClick={() => setIsLoginOpen(true)}
@@ -61,25 +74,38 @@ const Navbar = () => {
 
           {/* Mobile Navigation */}
           <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-            {navLinks.map(({ path, label }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`mobile-nav-link ${isActivePath(path) ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {label}
-              </Link>
-            ))}
-            <button 
+            <Link
+              to="/"
               className="mobile-nav-link"
               onClick={() => {
+                window.scrollTo(0, 0);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Level Selection
+            </Link>
+            <Link
+              to="/"
+              className="mobile-nav-link"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsLeaderboardOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Leaderboard
+            </Link>
+            <Link
+              to="/"
+              className="mobile-nav-link"
+              onClick={(e) => {
+                e.preventDefault();
                 setIsAboutOpen(true);
                 setIsMobileMenuOpen(false);
               }}
             >
               About
-            </button>
+            </Link>
             <button 
               className="mobile-nav-button"
               onClick={() => {
@@ -92,16 +118,20 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      
-      <Login 
-        isOpen={isLoginOpen} 
-        onClose={() => setIsLoginOpen(false)} 
+
+      <Leaderboard
+        isOpen={isLeaderboardOpen}
+        onClose={() => setIsLeaderboardOpen(false)}
       />
       <AboutModal 
         isOpen={isAboutOpen}
         onClose={() => setIsAboutOpen(false)}
       />
-    </>  
+      <Login 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)} 
+      />
+    </>
   );
 };
 

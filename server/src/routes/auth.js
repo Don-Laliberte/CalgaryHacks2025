@@ -24,7 +24,8 @@ passport.deserializeUser(async (data, done) => {
       done(null, {
         username: foundUser.username,
         profilePicture: foundUser.profilePicture,
-        id: foundUser.id
+        id: foundUser.id,
+        level: foundUser.level
       })
     }
   } catch (err) {

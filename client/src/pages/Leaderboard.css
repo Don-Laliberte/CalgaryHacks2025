@@ -1,0 +1,102 @@
+/* Leaderboard.css */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.leaderboard-box {
+  padding: 24px;
+  width: 400px;
+  background: #FFFAF4;
+  border-radius: 8px;
+}
+
+.leaderboard-title {
+  color: #4A5D42;
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 24px;
+}
+
+.leaderboard-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leaderboard-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+  background: #7C9070;
+  border-radius: 3px;
+}
+
+.leaderboard-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #A6B59E;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.username {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4A5D42;
+  text-align: left;
+}
+
+.level {
+  font-size: 0.9rem;
+  color: #7C9070;
+  font-weight: 500;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #4A5D42;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ClickableImageWrapper from './components/ClickableImageAssets/ClickableImageWrapper.jsx';
 import QuestionModal from './components/QuestionModal';
 import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage';
@@ -7,6 +8,8 @@ import { useState, useEffect } from 'react';
 import PhidgetErrorBoundary from './components/PhidgetErrorBoundary';
 import PhidgetTest from './components/PhidgetTest';
 import { PhidgetProvider } from './components/PhidgetKit';
+import Leaderboard from './pages/Leaderboard.jsx';
+import About from './pages/About.jsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,23 +35,22 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col h-screen">
-        <Navbar />
-        <main className="flex-1">
-          <PhidgetErrorBoundary>
+      <PhidgetErrorBoundary>
+        <div className="flex flex-col h-screen">
+          <Navbar />
+          <main className="flex-1">
             <PhidgetProvider>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/quiz" element={<QuestionModal />} />
-                <Route path="/phidget-test" element={<PhidgetTest />} />
-                <Route path="/leaderboard" element={<div>Leaderboard Coming Soon</div>} />
-                <Route path="/about" element={<div>About Page</div>} />
-                <Route path="/login" element={<Login/>} />
-              </Routes>
+            <Routes>
+            <Route path="/" element={<HomePage />} />
+              <Route path="/quiz" element={<QuizWithErrorBoundary />} />
+              <Route path="/leaderboard" element={<Leaderboard/>} />
+              <Route path="/about" element={<About/>} />
+              <Route path="/login" element={<Login/>} />
+            </Routes>
             </PhidgetProvider>
-          </PhidgetErrorBoundary>
-        </main>
-      </div>
+          </main>
+        </div>
+      </PhidgetErrorBoundary>
     </Router>
   );
 }

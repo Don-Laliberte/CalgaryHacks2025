@@ -1,0 +1,59 @@
+.larger-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.larger-modal-content {
+    min-width: 75vw;
+    background: #FFFAF4;
+    border-radius: 8px;
+    border: 1px solid #7C9070;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+.larger-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #4A5D42;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.larger-modal-close:hover {
+    background-color: rgba(74, 93, 66, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

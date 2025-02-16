@@ -26,6 +26,11 @@ const GoogleUserSchema = {
     required: true,
     unique: false,
   },
+  level: {
+    type: mongoose.Schema.Types.Int32,
+    required: true,
+    unique: false,    
+  }
 };
 
 const GoogleUser = mongoose.model("GoogleUser", GoogleUserSchema);
