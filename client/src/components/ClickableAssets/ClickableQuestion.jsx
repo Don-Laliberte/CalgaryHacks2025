@@ -1,42 +1,26 @@
 import "./ClickableQuestion.css";
 import { useQuizStore } from "../../store";
-import QuizItem from "../QuizItem";
-import { questions } from "../../data/quizQuestions";
-import { useState } from "react";
 
-const ClickableQuestion = ({ imageSrc, questionId, top, left }) => {
-  const { isOpen, openQuizModal, closeQuizModal, setQuestionDone } = useQuizStore();
-  const [isAnswered, setIsAnswered] = useState(false);
-  const question = questions.find(q => q.id === questionId);
+const BasicClickableQuestion = ({ imageSrc, top, left }) => {
+  const { openQuizModal } = useQuizStore();
 
   const handleImageClick = () => {
-    if (question && !question.isDone) {
-      openQuizModal(question);
-    }
-  };
-
-  const handleQuestionAnswered = (answeredCorrectly) => {
-    if (answeredCorrectly) {
-      setQuestionDone(question.id);
-      setIsAnswered(true);
-    }
-    closeQuizModal();
+    openQuizModal(); // Opens the quiz list without referencing individual questions
   };
 
   return (
     <div
       className="clickable-question"
-      style={{ position: "absolute", top: `${top}px`, left: `${left}px`, pointerEvents: isAnswered || question?.isDone ? "none" : "auto" }}
+      style={{ position: "absolute", top: `${top}px`, left: `${left}px` }}
     >
       <img
         src={imageSrc}
         alt="Clickable"
-        className={`responsive ${isAnswered || question?.isDone ? "disabled" : "hover-effect"}`}
-        onClick={isAnswered || question?.isDone ? undefined : handleImageClick}
+        className="hover-effect"
+        onClick={handleImageClick}
       />
-      {isOpen && question && <QuizItem question={question} onClose={handleQuestionAnswered} />}
     </div>
   );
 };
 
-export default ClickableQuestion;
+export default BasicClickableQuestion;

@@ -1,7 +1,7 @@
 import "./ClickableImage.css";
 import { useInfoStore } from "../../store";
 
-const ClickableImage = ({ imageSrc, message }) => {
+const ClickableImage = ({ imageSrc, message, top, left }) => {
   const { isVisible, setMessage, hideMessage } = useInfoStore();
 
   const handleImageClick = () => {
@@ -13,7 +13,10 @@ const ClickableImage = ({ imageSrc, message }) => {
   };
 
   return (
-    <div className="image-container">
+    <div 
+      className="image-container" 
+      style={{ position: "absolute", top: `${top}px`, left: `${left}px` }}
+    >
       <img
         src={imageSrc}
         alt="Clickable"
