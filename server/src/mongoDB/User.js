@@ -22,6 +22,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  level: {
+    type: mongoose.Schema.Types.String,
+    required: true,
+    unique: false,  
+  }
 });
 
 const User = mongoose.model("User", userSchema);

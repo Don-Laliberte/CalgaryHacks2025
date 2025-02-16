@@ -20,7 +20,8 @@ passport.use(new Strategy({
       email: profile.emails[0].value,
       authID: profile.id,
       provider: profile.provider,
-      profilePicture: profile.photos[0].value
+      profilePicture: profile.photos[0].value,
+      level: 0
     }).save()
     done(null, newUser)
     }
