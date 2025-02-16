@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-link {
+    @apply text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 relative;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .hover-highlight {
+    @apply transition-all duration-200;
+  }
+
+  /* Add smooth hover animations for buttons */
+  button {
+    @apply transform transition-all duration-200 ease-in-out;
+  }
+
+  /* Add a subtle pulse animation for hover state */
+  @keyframes subtle-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  .animate-subtle-pulse {
+    animation: subtle-pulse 2s infinite;
+  }
+
+  .outline-highlighted {
+    @apply border-2 border-green-600 bg-green-50 shadow-md transform scale-105;
+  }
+}
+
+/* Add smooth scrolling to the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent content shift when scrollbar appears */
+html {
+  width: 100vw;
+  overflow-x: hidden;
+} 
