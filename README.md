@@ -1,4 +1,5 @@
 # CalgaryHacks2025: Leaf Quest
+![gorilla](https://github.com/user-attachments/assets/6521ef33-3cc9-487c-abeb-28fed0e205af)
 ## Intro
 Hello, this is our teams 2nd place winning project for Calgary Hacks 2025, Leaf Quest! It's goal to spread awareness of the effects of climate change on animals through a lightweight web game that focuses on engagement and informing the general public.
 
