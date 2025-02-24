@@ -17,8 +17,8 @@ Hello, this is our teams 2nd place winning project for Calgary Hacks 2025, Leaf 
 - Javascript
   
 ## Team Members and Credits
-Alice Phung
-Matthew Rojas
-Lucas Woo Woon Cheong
-Danny Nyugen
-Don Laliberte
+### Alice Phung
+### Matthew Rojas
+### Lucas Woo Woon Cheong
+### Danny Nyugen
+### Don Laliberte
