@@ -20,5 +20,5 @@ Hello, this is our teams 2nd place winning project for Calgary Hacks 2025, Leaf 
 ### Alice Phung
 ### Matthew Rojas
 ### Lucas Woo Woon Cheong
-### Danny Nyugen
+### Danny Nguyen
 ### Don Laliberte
